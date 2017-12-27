@@ -1,0 +1,65 @@
+﻿@model Repository.DomainModel.Entry.BuySlip
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="panel panel-info">
+
+    <div class="panel-heading">
+        جزئیات
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Supplier.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Supplier.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreation)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DeliveryMan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DeliveryMan)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("ثبت کننده")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationUser.UserName)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="panel-footer panel-info">
+        <div id="progress" style="display: none" class="container">
+            <img src="@Url.Content("~/Content/web/flat/loading-image.gif")" alt="در حال بار گذاری ..." />
+        </div>
+        <button class="btn btn-warning" data-dismiss="modal">بستن</button>
+
+    </div>
+</div>

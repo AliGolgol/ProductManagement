@@ -1,0 +1,74 @@
+﻿@model Repository.DomainModel.Entry.EntrySlip
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">جزئیات</div>
+    <div class="panel-body">
+        <p>...</p>
+        <div>
+            <br />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Period.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Period.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DeliveryMan)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DeliveryMan)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ESTypeId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ESTypeId)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="panel-footer">
+        <div class="container">
+            @Html.ActionLink("ویرایش", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning col-md-3" })
+            @Html.ActionLink("بازگشت", "Index", null, new { @class = "btn btn-default  col-md-3" })
+        </div>
+    </div>
+</div>

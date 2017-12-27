@@ -1,0 +1,55 @@
+﻿<div @flyInOut="'in'">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <repository-add></repository-add>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-hover table-bordered table-striped">
+                <tr>
+                    <td>شناسه</td>
+                    <td>نام</td>
+                    <td>عملیات</td>
+
+                </tr>
+                <tr *ngFor="#repository of repositories">
+                    <td>{{repository.Id}}</td>
+                    <td>{{repository.Name}}</td>
+                    <td>
+                        <text>
+                            <a title='جزئیات' (click)="viewDetails(repository.Id)"> <span class='glyphicon glyphicon-search'> </span> </a>
+                            <a [routerLink]="['/updateRepository',repository.Id]" title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>
+                            <a title='حذف' (click)="delRepository(repository)"> <span class='glyphicon glyphicon-trash'> </span> </a>
+                        </text>
+                </tr>
+            </table>
+            <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" class="pagination-sm"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+        <div class="panel-footer"></div>
+    </div>
+</div>
+<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+       (onOpen)="opened()" #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title" *ngIf="selectedRepositoryLoaded">{{repositoryDetails.Name}} details</h4>
+    </modal-header>
+    <modal-body *ngIf="selectedRepositoryLoaded">
+        <form ngNoForm method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="repositoryDetails.Name" disabled />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+        <button class="btn btn-danger btn-sm pull-right" (click)="modal.close()">
+            <i class="fa fa-times" aria-hidden="true"></i>Dismiss
+        </button>
+        <ng2-slim-loading-bar></ng2-slim-loading-bar>
+    </modal-footer>
+</modal>

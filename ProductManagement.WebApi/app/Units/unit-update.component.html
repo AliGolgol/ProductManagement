@@ -1,0 +1,49 @@
+﻿<form #editUnitForm="ngForm" *ngIf="unitLoaded" (ngSubmit)="onSubmit(editUnitForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ویرایش</span>
+        </div>
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">نام</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="unitDetails.Name"
+                           name="Name" #Name="ngModel" required />
+                    <div *ngIf="Name.touched && Name.errors">
+                        <label class="text-danger" *ngIf="Name.errors.required">
+                            نام را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Description" class="col col-md-2 control-label">توضیحات</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="unitDetails.Description"
+                           name="Description" #Description="ngModel" required />
+                    <div *ngIf="Description.touched && Description.errors">
+                        <label class="text-danger" *ngIf="Description.errors.required">
+                            توضیحات را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>انصراف
+            </button>
+
+            <button type="button" [disabled]="!editUnitForm.form.valid" class="btn btn-default"
+                    (click)="updateUnit(editUnitForm)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>ویرایش
+            </button>
+            
+        </div>
+    </div>
+
+</form>

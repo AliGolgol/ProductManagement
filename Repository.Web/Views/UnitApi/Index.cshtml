@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row" ng-app="UnitApp" ng-controller="UnitCtrl">
+    <div class="container">
+        <h2>کدینگ کالا</h2>
+        <strong class="error">{{error}}</strong>
+        <p ng-hide="addMode">
+            <a ng-click="toggleAdd()" href="javascript:;" class="btn btn-primary">جدید</a>
+        </p>
+
+        <form name="addUnit" ng-show="addMode" style="width: 600px; margin: 0px auto;">
+
+            <label>Name:</label><input type="text" ng-model="newUnit.Name" required />
+            <label>Description:</label><input type="text" ng-model="newUnit.Description" required />
+            <br />
+
+           
+            <br />
+            <span class="error" ng-show="addUnit.$error.Description">Invalid Model format!</span>
+            <br />
+            <input type="submit" value="Add" ng-click="AddUnit()" ng-disabled="!addUnit.$valid" class="btn btn-primary" />
+            <input type="button" value="Cancel" ng-click="toggleAdd()" class="btn btn-primary" />
+            <br />
+            <br />
+            <br />
+            <br />
+
+        </form>
+        <table class="table table-bordered table-hover" stype="width:800px;">
+            <tr>
+                <th>#</th>
+                <th>نام واحد </th>
+                <th>توضیحات</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="text" ng-model="search.Name" />
+                </td>
+                <td>
+                    <input type="text" ng-model="search.Description" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="unit in units | filter:search">
+                <td>
+                    <strong ng-hide="unit.editMode">
+                        {{unit.Id}}
+                    </strong>
+                </td>
+                <td>
+                    <p ng-hide="unit.editMode">{{unit.Name}}</p>
+                    <p ng-show="unit.editMode">
+                        <input type="text" ng-model="unit.Name" />
+                    </p>
+                </td>
+                <td>
+                    <p ng-hide="unit.editMode">{{unit.Description}}</p>
+                    <input type="text" ng-show="unit.editMode" ng-model="unit.Description" />
+                </td>
+                <td>
+
+                    <p ng-hide="unit.editMode">{{unit.Id}}</p>
+                   
+                </td>
+                <td>
+                    <p ng-hide="unit.editMode">
+                        <a ng-click="toggleEdit(product)" href="javascript:;">ویرایش</a> |
+                        <a ng-click="del(unit)" href="javascript:;">حذف</a>
+                    </p>
+                    <p ng-show="unit.editMode">
+                        <a ng-click="save(unit)" href="javascript:;">ذخیره</a> |
+                        <a ng-click="toggleEdit(unit)" href="javascript:;">بی خیال</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

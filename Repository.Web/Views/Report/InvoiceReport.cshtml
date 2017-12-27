@@ -1,0 +1,163 @@
+﻿@model Repository.ViewModel.Order.InvoiceViewModel
+@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+    <title>فاکتور</title>
+    <link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/site/persian-num-js.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.replace-digits').replaceDigits();
+        })
+    </script>
+</head>
+<body class="col-md-6 container col-md-offset-3 replace-digits">
+
+    <div class="table table-bordered" style="height:100px;margin-top:10px;">
+        <dl class="dl-horizontal col-md-5">
+            <dt>
+            @Html.DisplayName("شماره فاکتور")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt>
+                @Html.DisplayName("نحوه پرداخت")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PaymentTypeName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal  col-md-5">
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Reciver)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Reciver)
+            </dd>
+        </dl>
+    </div>
+   
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayName("ردیف")
+
+            </th>
+            <th>
+                @Html.DisplayName("نام کالا")
+            </th>
+            <th>
+                @Html.DisplayName("توضیحات")
+            </th>
+            <th>
+                @Html.DisplayName("تعداد")
+            </th>
+            <th>
+                @Html.DisplayName("قیمت")
+            </th>
+            <th>
+                @Html.DisplayName("")
+            </th>
+        </tr>
+        @{int rowNo = 0;}
+        @foreach (var item in Model.InvoiceItems)
+        {
+            <tr>
+                <td>
+                    <span>@(rowNo += 1)</span>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceInQuantity)
+                </td>
+            </tr>
+        }
+        @if (Model.InvoiceItems.Count < 10)
+        {
+            for (int i = 1; i < (10 - Model.InvoiceItems.Count); i++)
+            {
+                <tr>
+                    <td>
+                        <span>@(rowNo += 1)</span>
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        }
+        <tr>
+            <td colspan="5">جمع کل</td>
+            <td>
+                @Html.DisplayFor(model => model.TotalPrice)
+            </td>
+        </tr>
+    </table>
+    
+        <dl class="dl-horizontal table-bordered">
+            <dt>
+                @Html.DisplayNameFor(model => model.AboutFooter.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AboutFooter.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AboutFooter.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AboutFooter.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AboutFooter.Tel)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AboutFooter.Tel)
+            </dd>
+        </dl>    
+</body>
+</html>

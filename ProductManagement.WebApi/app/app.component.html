@@ -1,0 +1,297 @@
+﻿<div class="navbar navbar-inverse bg-danger navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+        </div>
+        <ul class="nav navbar-nav navbar-collapse collapse" *ngIf="userFlag">
+            <li class="active">
+                <a [routerLink]="['']" title='خانه' class="navbar-link">
+                <span> مدیریت کالا</span> 
+                </a>
+            </li>
+            <li><a [routerLink]="['/updateRepositoryType']" title='ویرایش'><span>ohk</span></a></li>
+            <li><a [routerLink]="['/updateRepositoryType']" title='ویرایش'>پکیج</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-left" *ngIf="userFlag">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    مدیریت کاربران
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">نقش ها</a></li>
+                    <li><a href="#">کاربران</a></li>
+                    <li><a href="#">سایر</a></li>
+                </ul>
+            </li>
+            <li>
+                <a [routerLink]="['/changePassword']">
+                    <span class="glyphicon glyphicon-user">سلام</span>
+                   
+                </a>
+            </li>
+            <li (click)="logout()">
+                <a href="">
+                    <span class="glyphicon glyphicon-log-in"></span> خروج
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 well well-sm   ViewpartHieght " style="position:fixed" *ngIf="userFlag">
+        <div class="panel-group top-gap" id="accordion">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse10">
+                            گزارشات
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a href="/StockItems" class="glyphicon glyphicon-barcode">&nbsp;موجودی&nbsp; <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li>
+                                <a href="/Invoices" class="glyphicon glyphicon-barcode ">&nbsp;حواله&nbsp; <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li>
+                                <a href="/BuySlips" class="glyphicon glyphicon-barcode ">&nbsp;رسید&nbsp; <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="glyphicon glyphicon-barcode ">
+                                    &nbsp;درخواست خردید&nbsp; <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="glyphicon glyphicon-barcode ">&nbsp;درخواست کالا&nbsp; <span class="sr-only">(current)</span></a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default collapse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse9">
+                            درخواست ها
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a href="#" class="glyphicon glyphicon-th-list">&nbsp;اعلام رسید&nbsp;</a>
+                            </li>
+                            <li>
+                                <a href="#" class="glyphicon glyphicon-th-list">&nbsp;درخواست خرید&nbsp;</a>
+                            </li>
+                            <li>
+                                <a href="#" class="glyphicon glyphicon-th-list">&nbsp;درخواست کالا از انبار&nbsp;</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse1">
+                            عملیات مقداری انبار
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['/invoiceList']" class="glyphicon glyphicon-th-list">&nbsp;حواله انبار&nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/buySlipList']" class="glyphicon glyphicon-th-list">&nbsp;رسید دائم&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse11">
+                            سایر
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['/billTypeList']" class="glyphicon glyphicon-th-list">&nbsp;تعریف سایر خروجی ها&nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['./entrySlipTypeList']" class="glyphicon glyphicon-th-list">&nbsp;تعریف سایر ورودیها&nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['./register']" class="glyphicon glyphicon-th-list">&nbsp;ثبت کاربر &nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/login']" class="glyphicon glyphicon-th-list">&nbsp;ورود&nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/about']" class="glyphicon glyphicon-th-list">&nbsp;درباره ما&nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/paymentTypeList']" class="glyphicon glyphicon-th-list">&nbsp;انواع پرداخت&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse3">
+                            کالاها
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['./productCategoryList']" class="glyphicon glyphicon-th-list">&nbsp;کدینک کالا&nbsp; </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['./productList']" class="glyphicon glyphicon-th-list">&nbsp;تعریف کالا&nbsp; </a>
+                            </li>
+                        </ul>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse4">
+                            فروشندگان
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['/supplierList']" class="glyphicon glyphicon-th-list">&nbsp;فروشندگان&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse5">
+                            خریداران
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a href="#" class="glyphicon glyphicon-th-list">&nbsp;خریداران&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse6">
+                            بخش درخواست کننده
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['/unitList']" class="glyphicon glyphicon-th-list">&nbsp; واحد&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse7">
+                            کارخانه/تولید کنندگان
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['/manufacturerList']" class="glyphicon glyphicon-th-list">&nbsp; سازنده&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse8">
+                            انبار
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav">
+                            <li>
+                                <a [routerLink]="['/repository']" class="glyphicon glyphicon-th-list">&nbsp; انبار&nbsp;</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/repositoryTypeList']" class="glyphicon glyphicon-th-list">&nbsp; انواع انبار&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9 col-md-offset-3">
+        <div class="container body-content top-gap">
+            <router-outlet></router-outlet>
+            
+            <hr />
+            <footer>
+                <div class="container col-md-offset-4">
+
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<ng2-slim-loading-bar></ng2-slim-loading-bar>

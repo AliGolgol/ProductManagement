@@ -1,0 +1,80 @@
+﻿<form #editRepositoryForm="ngForm" *ngIf="repostitoryLoaded" (ngSubmit)="onSubmit(editRepositoryForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ایجاد</span>
+        </div>
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">کد</label>
+                <div class="col-md-10">
+                    <input ngControl="Code" id="Code" required autofocus
+                           #Code="ngModel"
+                           (change)="log(Code)"
+                           minlenght="3"
+                           type="text" class="form-control"
+                           [(ngModel)]="repositoryModel.Code"
+                           name="Code" />
+                    <div *ngIf="Code.touched && Code.errors">
+                        <label class="text-danger" *ngIf="Code.errors.required">
+                            کد را وارد کنید
+                        </label>
+                        <label class="text-danger" *ngIf="Code.errors.minlength">
+                            Name should be minimum {{ Code.errors.minlength.requiredLength }} characters.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">نام</label>
+                <div class="col-md-10">
+                    <input ngControl="Name" id="Name" required
+                           #Name="ngModel"
+                           (change)="log(Name)"
+                           minlenght="3"
+                           type="text" class="form-control"
+                           [(ngModel)]="repositoryModel.Name"
+                           name="Name" />
+                    <div *ngIf="Name.touched && Name.errors">
+                        <label class="text-danger" *ngIf="Name.errors.required">
+                            نام را وارد کنید
+                        </label>
+                        <label class="text-danger" *ngIf="Name.errors.minlength">
+                            Name should be minimum {{ Name.errors.minlength.requiredLength }} characters.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">نوع انبار</label>
+                <div class="col-md-10">
+                    <select class="form-control" [(ngModel)]="repositorySelected" name="RepositoryTypeId" (ngModelChange)="onChange($event)">
+                        <option *ngFor="let repositoryType of repositoryModel.RepositoryType" [ngValue]="repositoryType.Id">{{repositoryType.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">نوع قیمت گذاری</label>
+                <div class="col-md-10">
+                    <select class="form-control" [(ngModel)]="priceEstimateSelected" name="priceEstimate" (ngModelChange)="onChanged($event)">
+                        <option *ngFor="let priceEst of priceEstimate" [ngValue]="priceEst.value">{{priceEst.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Back
+            </button>
+
+            <button type="button" [disabled]="!editRepositoryForm.form.valid" class="btn btn-default"
+                    (click)="updateRepository(editRepositoryForm)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update
+            </button>
+            <button [disabled]="!editRepositoryForm.valid"
+                    type="submit" class="btn btn-primary">
+                ثبت
+            </button>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,156 @@
+﻿<div>
+    <h1>{{pageTitle}}</h1>
+</div>
+    <div class="row col-md-offset-1">
+
+        <div class="col-xs-6 col-sm-3 placeholder">
+            <a class="btn img-circle img-responsive" href="/BuySlips/Index" id="btnCreate" width="100" height="100">
+                <!--<span class="glyphicon glyphicon-plus"></span>-->
+                <img src="/Content/web/autocomplete/palette.png" class="img-circle img-responsive" width="100" height="100" />
+                <h4>@Model.BuySlipCount</h4>
+                <span class="text-muted">رسید</span>
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+            <a class="btn img-circle img-responsive" href="/Invoices" id="btnCreate" width="100" height="100">
+               <!--<span class="glyphicon glyphicon-plus"></span>-->
+                <img src="/Content/web/autocomplete/palette.png" class="img-circle img-responsive" width="100" height="100" />
+                <h4>@Model.InvoiceCount</h4>
+                <span class="text-muted">حواله/فاکتور</span>
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+            <a class="btn img-circle img-responsive" href="/StockItems" id="btnCreate" width="100" height="100">
+               <!--<span class="glyphicon glyphicon-plus"></span>-->
+                <img src="/Content/web/autocomplete/palette.png" class="img-circle img-responsive" width="100" height="100" />
+                <h4>@Model.StockCount</h4>
+               
+                <span class="text-muted">موجودی</span>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-3 placeholder">
+            <fieldset>
+                <legend>تغییر نوع نمودار</legend>
+                <input type="radio" name="rdShowApproach" onclick="changeChartType('bar')" />میله ای<br />
+                <input type="radio" name="rdShowApproach" onclick="changeChartType('pie')" />دایره ای<br />
+                <input type="radio" name="rdShowApproach" checked="checked" onclick="changeChartType('column')" />ستونی<br />
+                <input type="radio" name="rdShowApproach" onclick="changeChartType('donut')" />دونات<br />
+                <input type="radio" name="rdShowApproach" onclick="changeChartType('line')" />خطی<br />
+                <input type="radio" name="rdShowApproach" onclick="changeChartType('waterfall')" />آبشاری<br />
+                <input type="radio" name="rdShowApproach" onclick="changeChartType('funnel')" />قیفی<br />
+            </fieldset>
+        </div>
+
+        <div class="col-xs-6  placeholder glyphicon-text-background">
+            <div>
+                <div id="chartInv" dir="rtl">
+                </div>
+                <button onclick="doExportInv()" class="k-button">تهیه خروجی</button>
+            </div>
+            <div>
+                <div id="chartBuy" dir="rtl">
+                </div>
+                <button onclick="doExportBuy()" class="k-button">تهیه خروجی</button>
+            </div>
+        </div>
+    </div>
+       
+    <script type="text/javascript">
+
+        
+        $('#chartInv').ShowChart({
+            url: "@Url.RouteUrl('DefaultApi', new { httproute = '', controller = 'Home',Action='GetInvoiceItem' })",
+            //url: '@Url.Action("GetInvoiceItem", "Home")',
+            //url: "/api/Home/GetInvoiceItem",
+            legendPosition: "right",
+            seriesType: "column",
+            text: "فاکتور",
+            categoryAxisLabelsRotation: 45,
+            font: '16px irans',
+            theme: 'Silver'
+        });
+
+        $('#chartBuy').ShowChart({
+            //url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "products" })",
+            //url: "@Url.Action("GetBuySlipItem", "Home")",
+            legendPosition: "right",
+            seriesType: "column",
+            text: "رسید",
+            categoryAxisLabelsRotation: -45,
+            font: '16px irans',
+            theme: 'Silver'
+        });
+
+        function changeChartType(type) {
+            var chartInv = $("#chartInv").data("kendoChart");
+            chartInv.options.series[0].type = type;
+            chartInv.refresh();
+
+            var chartBuy = $("#chartBuy").data("kendoChart");
+            chartBuy.options.series[0].type = type;
+            chartBuy.refresh();
+        }
+
+
+        kendo.pdf.defineFont({
+            /*"Verdana": "/fonts/Verdana.ttf", // this is a URL
+            "Verdana|Bold": "/fonts/Verdana_Bold.ttf",
+            "Verdana|Bold|Italic": "/fonts/Verdana_Bold_Italic.ttf",
+            "Verdana|Italic": "/fonts/Verdana_Italic.ttf"*/
+            "Iranian Sans": "/fonts/irsans.ttf"
+        });
+
+        function doExportInv() {
+            var chart = $("#chartInv").data("kendoChart");
+
+            chart.saveAsPDF(); // it needs version 2014.3.1119 +
+            // or
+            chart.exportImage().done(function (data) {
+                kendo.saveAs({
+                    dataURI: chart.imageDataURL(),
+                    fileName: "chartInv.png"
+                });
+            });
+        }
+            function doExportBuy() {
+                var chart = $("#chartBuy").data("kendoChart");
+
+                chart.saveAsPDF(); // it needs version 2014.3.1119 +
+                // or
+                chart.exportImage().done(function (data) {
+                    kendo.saveAs({
+                        dataURI: chart.imageDataURL(),
+                        fileName: "chartBuy.png"
+                    });
+                });
+        }
+    </script>
+   
+<div class="row">
+    <div class="col-md-6">
+        <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px">
+        <table class="table table-responsive table-condensed">
+            <tr>
+                <th *ngFor="let label of lineChartLabels"></th>
+            </tr>
+            <tr *ngFor="let d of lineChartData">
+                <td *ngFor="let label of lineChartLabels; let j=index"></td>
+            </tr>
+        </table>
+        <button (click)="randomize()">CLICK</button>
+    </div>
+</div>

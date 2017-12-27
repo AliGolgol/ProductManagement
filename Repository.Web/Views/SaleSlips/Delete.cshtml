@@ -1,0 +1,75 @@
+﻿@model Repository.DomainModel.Order.Stock
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="panel panel-danger">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        آیا مطمئن هستید؟
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.EntrySlipType.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EntrySlipType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Period.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Period.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Supplier.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Supplier.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Editable)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Editable)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="container">
+                <input type="submit" value="حذف" class="btn btn-danger  col-md-3" />
+                @Html.ActionLink("بازگشت", "Index", null, new { @class = "btn btn-default  col-md-3" })
+            </div>
+        }
+    </div>
+</div>

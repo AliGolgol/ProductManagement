@@ -1,0 +1,61 @@
+﻿<div @flyInOut="'in'">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <!--<invoiceItem-add (clicked)="onClicked($event)"></invoiceItem-add>-->
+            <a class="btn btn-success" [routerLink]="['../addInvoiceItem']">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-hover table-bordered table-striped">
+                <tr>
+                    <td>شناسه</td>
+                    <td>ملبغ</td>
+                    <td>تعداد</td>
+                    <td>عملیات</td>
+
+                </tr>
+                <tr *ngFor="#invoiceItem of invoiceItems">
+                    <td>{{invoiceItem.Id}}</td>
+                    <td>{{invoiceItem.Price}}</td>
+                    <td>{{invoiceItem.Quantity}}</td>
+                    <td>
+                        <text>
+                            <a title='جزئیات' (click)="viewDetails(invoiceItem.Id)"> <span class='glyphicon glyphicon-search'> </span> </a>
+                            <a [routerLink]="['/updateInvoiceItem',invoiceItem.Id]" title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>
+                            <a title='حذف' (click)="delInvoiceItem(invoiceItem)"> <span class='glyphicon glyphicon-trash'> </span> </a>
+                        </text>
+                </tr>
+            </table>
+            <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" class="pagination-sm"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+        <div class="panel-footer"></div>
+    </div>
+</div>
+
+<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+       (onOpen)="opened()" #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title" *ngIf="selectedInvoiceItemLoaded">{{invoiceItemDetails.id}} details</h4>
+    </modal-header>
+    <modal-body *ngIf="selectedBuySlipItemLoaded">
+        <form ngNoForm method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>قیمت</label>
+                        <input type="text" class="form-control" [(ngModel)]="invoiceItemDetails.Price" disabled />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+        <button class="btn btn-danger btn-sm pull-right" (click)="modal.close()">
+            <i class="fa fa-times" aria-hidden="true"></i>Dismiss
+        </button>
+        <ng2-slim-loading-bar></ng2-slim-loading-bar>
+    </modal-footer>
+</modal>

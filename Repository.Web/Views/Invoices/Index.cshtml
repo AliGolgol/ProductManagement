@@ -1,0 +1,69 @@
+﻿@*@model IEnumerable<Repository.DomainModel.Order.Invoice>*@
+@model Repository.ViewModel.Common.PagedList<Repository.ViewModel.Order.InvoiceHeader>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    var grid = new WebGrid(canPage: true, canSort: true,
+                            ajaxUpdateContainerId: "grid", rowsPerPage: Model.PageSize);
+    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+
+<div id="myModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Invoices", FormMethod.Get))
+{
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <div class="form-group">
+                <a class="btn btn-success" href="/InvoiceItems/Create" id="btnCreate">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                <div class="input-group col-md-11">
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="جستجو براساس تاریخ و گیرنده" />
+                    <button class="btn btn-default" type="submit">جستجو</button>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="panel-body">
+            <p>...</p>
+            @grid.GetHtml(tableStyle: "table table-hover table-bordered table-striped",
+         columns: grid.Columns(
+         grid.Column(columnName: "Id", header: "شناسه"),
+         grid.Column(columnName: "CreatedDate", header: "تاریخ ثبت"),
+         grid.Column(columnName: "Reciver", header: "گیرنده"),
+         grid.Column(columnName: "BillTypeName", header: "نوع خروج کالا"),
+         grid.Column(columnName: "PaymentTypeName", header: "نوع پرداخت"),
+         grid.Column(columnName: "Description", header: "توضحیات"),
+         grid.Column(header: "عملیات", format: @<text>
+            @Html.Raw("<a data-modal='' href='/Invoices/Details/" + item.Id + "' id='" + item.Id + "' title='جزئیات'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a href='/Invoices/Edit/" + item.Id + "' id='" + item.Id + "' title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/Invoices/Delete/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+            @Html.Raw("<a  href='/Report/InvoiceReport/" + item.Id + "' id='" + item.Id + "' title='چاپ فاکتور' target='_blank'> <span class='glyphicon glyphicon-print'> </span> </a>")
+            @Html.Raw("<a  href='/Report/DraftReport/" + item.Id + "' id='" + item.Id + "' title='چاپ حواله' target='_blank'> <span class='glyphicon glyphicon-tags'> </span> </a>")
+        </text>)))
+        </div>
+        <!-- Table -->
+        <div class="panel-footer"></div>
+    </div>}
+<script src="~/Scripts/site/bootstrap-ajax-modal.js"></script>

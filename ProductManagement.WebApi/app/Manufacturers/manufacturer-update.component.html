@@ -1,0 +1,78 @@
+﻿<form #editManufacturerForm="ngForm" *ngIf="manufacturerLoaded" (ngSubmit)="onSubmit(editManufacturerForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ویرایش</span>
+        </div>
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">نام</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="manufacturerDetails.Name"
+                           name="Name" #Name="ngModel" required  />
+                    <div *ngIf="Name.touched && Name.errors">
+                        <label class="text-danger" *ngIf="Name.errors.required">
+                            کد را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">آدرس</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="manufacturerDetails.Address"
+                           name="Address" #Address="ngModel" required  />
+                    <div *ngIf="Address.touched && Address.errors">
+                        <label class="text-danger" *ngIf="Address.errors.required">
+                            کد را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">شماره تماس</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="manufacturerDetails.Tel"
+                           name="Tel" #Tel="ngModel" required  />
+                    <div *ngIf="Tel.touched && Tel.errors">
+                        <label class="text-danger" *ngIf="Tel.errors.required">
+                            کد را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">توضیحات</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" [(ngModel)]="manufacturerDetails.Description"
+                           name="Description" #Description="ngModel" required  />
+                    <div *ngIf="Description.touched && Description.errors">
+                        <label class="text-danger" *ngIf="Description.errors.required">
+                            کد را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>انصراف
+            </button>
+
+            <button type="button" [disabled]="!editManufacturerForm.form.valid" class="btn btn-default"
+                    (click)="updateManufacturer(editManufacturerForm)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>ثبت
+            </button>
+           
+        </div>
+    </div>
+
+</form>

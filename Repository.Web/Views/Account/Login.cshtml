@@ -1,0 +1,223 @@
+﻿@using Repository.ViewModel.AppUser
+@model Repository.ViewModel.AppUser.LoginViewModel
+
+@{
+    ViewBag.Title = "ورود";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+    </script>
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/PersianDatePicker.min.css" rel="stylesheet" />
+</head>
+<body class="bakLogin">
+    <div class="container col-md-5 col-md-offset-4">
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                ورود
+            </div>
+            <div class="panel-body">
+                <div class="container">
+                    <div class="col-md-8">
+                        <section id="loginForm">
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9 editor-field focus">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-9">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" value="ورود" class="btn btn-default btn-block" />
+                                </div>
+                            </div>
+
+                        }
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-footer panel-success">
+                <p>
+                    @Html.ActionLink("ثبت کاربر ?", "Register")
+                </p>
+                <p>
+                    @Html.ActionLink("رمز عبور را فراموش گردید?", "ForgotPassword")
+                </p>
+
+            </div>
+        </div>
+        <div></div>
+    </div>
+    
+</body>
+
+</html>
+<script src="~/Scripts/toastr.min.js"></script>
+<script>
+        $(document).ready(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "300000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+        // override jquery validate plugin defaults
+        $.validator.setDefaults({
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        $(function () {
+            $('form').each(function () {
+                $(this).find('div.form-group').each(function () {
+                    if ($(this).find('span.field-validation-error').length > 0) {
+                        $(this).addClass('has-error');
+                    }
+                });
+            });
+        });
+        })
+</script>
+<script type="text/javascript">
+        $('body').on('keydown', 'input, select, textarea', function (e) {
+            var self = $(this)
+              , form = self.parents('form:eq(0)')
+              , focusable
+              , next
+            ;
+            if (e.keyCode == 13) {
+                focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                next = focusable.eq(focusable.index(this) + 1);
+                if (next.length) {
+                    next.focus();
+                } else {
+                    form.submit();
+                }
+                return false;
+            }
+        });
+</script>
+<script>
+        $(document).ready(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "300000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+        // override jquery validate plugin defaults
+        $.validator.setDefaults({
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        $(function () {
+            $('form').each(function () {
+                $(this).find('div.form-group').each(function () {
+                    if ($(this).find('span.field-validation-error').length > 0) {
+                        $(this).addClass('has-error');
+                    }
+                });
+            });
+        });
+        })
+</script>
+<script type="text/javascript">
+        $('body').on('keydown', 'input, select, textarea', function (e) {
+            var self = $(this)
+              , form = self.parents('form:eq(0)')
+              , focusable
+              , next
+            ;
+            if (e.keyCode == 13) {
+                focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                next = focusable.eq(focusable.index(this) + 1);
+                if (next.length) {
+                    next.focus();
+                } else {
+                    form.submit();
+                }
+                return false;
+            }
+        });
+</script>

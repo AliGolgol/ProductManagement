@@ -1,0 +1,58 @@
+//import './rxjs-operators';
+//import { NgModule }      from '@angular/core';
+//import { BrowserModule } from '@angular/platform-browser';
+//import { FormsModule } from '@angular/forms';
+//import { HttpModule }    from '@angular/http';
+//import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { ProgressbarModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { SlimLoadingBarService, SlimLoadingBarComponent } from 'ng2-slim-loading-bar';
+//import { AppComponent }   from './app.component';
+//import { HomeComponent } from './home/home.component';
+//import { MobileHideDirective } from './shared/directives/mobile-hide.directive';
+//import { ScheduleEditComponent } from './schedules/schedule-edit.component';
+//import { ScheduleListComponent } from './schedules/schedule-list.component';
+//import { UserCardComponent } from './users/user-card.component';
+//import { UserListComponent } from './users/user-list.component';
+//import { routing } from './app.routes';
+//import { DataService } from './shared/services/data.service';
+//import { ConfigService } from './shared/utils/config.service';
+//import { ItemsService } from './shared/utils/items.service';
+//import { MappingService } from './shared/utils/mapping.service';
+//import { NotificationService } from './shared/utils/notification.service';
+//@NgModule({
+//    imports: [
+//        BrowserModule,
+//        DatepickerModule,
+//        FormsModule,
+//        HttpModule,
+//        Ng2BootstrapModule,
+//        ModalModule,
+//        ProgressbarModule,
+//        PaginationModule,
+//        routing
+//    ],
+//    declarations: [
+//        AppComponent,
+//        HomeComponent,
+//        MobileHideDirective,
+//        ScheduleEditComponent,
+//        ScheduleListComponent,
+//        SlimLoadingBarComponent,
+//        UserCardComponent,
+//        UserListComponent
+//    ],
+//    providers: [
+//        ConfigService,
+//        DataService,
+//        ItemsService,
+//        MappingService,
+//        NotificationService,
+//        SlimLoadingBarService
+//    ],
+//    bootstrap: [AppComponent]
+//})
+//export class AppModule { } 
+//# sourceMappingURL=app.module.js.map

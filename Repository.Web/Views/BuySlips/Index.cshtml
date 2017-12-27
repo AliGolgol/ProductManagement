@@ -1,0 +1,65 @@
+﻿@model Repository.ViewModel.Common.PagedList<Repository.ViewModel.Entry.BuySlipHeader>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    var grid = new WebGrid(canPage: true, canSort: true,
+                            ajaxUpdateContainerId: "grid", rowsPerPage: Model.PageSize);
+    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+@using (Html.BeginForm("Index", "BuySlips", FormMethod.Get))
+{
+<div id="myModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <div class="form-group">
+            <a class="btn btn-success" href="/BuySlipItems/Create" id="btnCreate">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            <div class="input-group col-md-11">
+                <input type="text"
+                       name="filter"
+                       value="@ViewBag.filter"
+                       class="form-control"
+                       style="display: inline"
+                       placeholder="جستجو براساس تاریخ و گیرنده" />
+                <button class="btn btn-default" type="submit">جستجو</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <p>...</p>
+        @grid.GetHtml(tableStyle: "table table-hover table-bordered table-striped",
+      columns: grid.Columns(
+      grid.Column(columnName: "Id", header: "شناسه"),
+      grid.Column(columnName: "DateCreation", header: "تاریخ ثبت"),
+      grid.Column(columnName: "Description", header: "توضیحات"),
+      grid.Column(columnName: "EntrySlipType", header: "نوع ورود کالا"),
+      grid.Column(columnName: "Supplier", header: "تامین کننده"),
+      grid.Column(header: "عملیات", format: @<text>
+            @Html.Raw("<a data-modal='' href='/BuySlips/Details/" + item.Id + "' id='" + item.Id + "' title='جزئیات'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a href='/BuySlips/Edit/" + item.Id + "' id='" + item.Id + "' title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/BuySlips/Delete/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+            @Html.Raw("<a target='_blank' href='/Report/BuySlipReport/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-print'> </span> </a>")
+        </text>)))
+    </div>
+    <!-- Table -->
+    <div class="panel-footer"></div>
+</div>
+}
+<script src="~/Scripts/site/bootstrap-ajax-modal.js"></script>

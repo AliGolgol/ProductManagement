@@ -1,0 +1,82 @@
+﻿<form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
+    <div class="panel panel-primary">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+
+            <div class="panel-body form-horizontal">
+                <div class="form-group">
+                    <label for="Email" class="col col-md-2 control-label">ایمیل</label>
+                    <div class="col-md-10">
+                        <input ngControl="Email" id="Email" required autofocus
+                               #Email="ngModel"
+                               (change)="log(Email)"
+                               minlenght="3"
+                               type="email" class="form-control"
+                               [(ngModel)]="registerBindingModel.Email"
+                               name="Email" />
+                        <div *ngIf="Email.touched && Email.errors">
+                            <label class="text-danger" *ngIf="Email.errors.required">
+                                ایمیل را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="Email.errors.minlength">
+                                Email should be minimum {{ Email.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="Password" class="col col-md-2 control-label">رمز عبور</label>
+                        <div class="col-md-10">
+                            <input type="password" class="form-control" [(ngModel)]="registerBindingModel.Password"
+                                   name="Password" #Password="ngModel" required />
+                            <div *ngIf="Password.touched && Password.errors">
+                                <label class="text-danger" *ngIf="Password.errors.required">
+                                    رمز عبور را وارد کنید
+                                </label>
+                                <label class="text-danger" *ngIf="Password.errors.minlength">
+                                    Email should be minimum {{ Password.errors.minlength.requiredLength }} characters.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="ConfirmPassword" class="col col-md-2 control-label">تکرار رمز عبور</label>
+                        <div class="col-md-10">
+                            <input type="password" class="form-control" [(ngModel)]="registerBindingModel.ConfirmPassword"
+                                   name="ConfirmPassword" #ConfirmPassword="ngModel" required />
+                            <div *ngIf="ConfirmPassword.touched && ConfirmPassword.errors">
+                                <label class="text-danger" *ngIf="ConfirmPassword.errors.required">
+                                    تکرار رمز عبور را وارد کنید
+                                </label>
+                                <label class="text-danger" *ngIf="ConfirmPassword.errors.minlength">
+                                    Email should be minimum {{ ConfirmPassword.errors.minlength.requiredLength }} characters.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button [disabled]="!f.valid"
+                                type="submit" class="btn btn-primary">
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+        
+    
+    
+
+

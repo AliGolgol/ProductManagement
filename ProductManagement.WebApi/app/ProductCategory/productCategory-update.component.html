@@ -1,0 +1,143 @@
+﻿<form #editProductCategoryForm="ngForm" *ngIf="productCategoryLoaded" (ngSubmit)="onSubmit(editProductCategoryForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ایجاد</span>
+        </div>
+        <div class="panel-body form-horizontal">
+
+            <div class="form-group">
+                <label for="Name" class="col col-md-3 control-label">نام</label>
+                <div class="col-md-9">
+                    <input ngControl="Name" id="Name" required
+                           #Name="ngModel"
+                           (change)="log(Name)"
+                           minlenght="3"
+                           type="text" class="form-control"
+                           [(ngModel)]="productCategoryModel.Name"
+                           name="Name" />
+                    <div *ngIf="Name.touched && Name.errors">
+                        <label class="text-danger" *ngIf="Name.errors.required">
+                            نام را وارد کنید
+                        </label>
+                        <label class="text-danger" *ngIf="Name.errors.minlength">
+                            Name should be minimum {{ Name.errors.minlength.requiredLength }} characters.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Parent" class="col col-md-3 control-label">سر گروه</label>
+                <div class="col-md-9">
+                    <select class="form-control" [(ngModel)]="productCategorySelected" name="productCategory" (ngModelChange)="onChange($event)">
+                        <option *ngFor="let productCategory of productCategoryModel.Parent" [ngValue]="productCategory.Id">{{productCategory.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Description" class="col col-md-3 control-label">توضیحات</label>
+                <div class="col-md-9">
+                    <input ngControl="Description" id="Description" required
+                           #Description="ngModel"
+                           (change)="log(Description)"
+                           minlenght="3"
+                           type="text" class="form-control"
+                           [(ngModel)]="productCategoryModel.Description"
+                           name="Description" />
+                    <div *ngIf="Description.touched && Description.errors">
+                        <label class="text-danger" *ngIf="Description.errors.required">
+                            نام را وارد کنید
+                        </label>
+                        <label class="text-danger" *ngIf="Description.errors.minlength">
+                            Name should be minimum {{ Description.errors.minlength.requiredLength }} characters.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="PackageCount" class="col col-md-3 control-label">تعداد در بسته</label>
+                <div class="col-md-9">
+                    <input ngControl="PackageCount" id="PackageCount" required
+                           #PackageCount="ngModel"
+                           type="text" class="form-control"
+                           [(ngModel)]="productCategoryModel.PackageCount"
+                           name="PackageCount" />
+                    <div *ngIf="PackageCount.touched && PackageCount.errors">
+                        <label class="text-danger" *ngIf="PackageCount.errors.required">
+                            نام را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="MinimumBalance" class="col col-md-3 control-label">حداقل موجودی</label>
+                <div class="col-md-9">
+                    <input ngControl="MinimumBalance" id="MinimumBalance" required
+                           #MinimumBalance="ngModel"
+                           type="text" class="form-control"
+                           [(ngModel)]="productCategoryModel.MinimumBalance"
+                           name="MinimumBalance" />
+                    <div *ngIf="MinimumBalance.touched && MinimumBalance.errors">
+                        <label class="text-danger" *ngIf="MinimumBalance.errors.required">
+                            نام را وارد کنید
+                        </label>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Fee" class="col col-md-3 control-label">درصد افزایش قیمت</label>
+                <div class="col-md-9">
+                    <input ngControl="Fee" id="Fee" required
+                           #Fee="ngModel"
+                           type="text" class="form-control"
+                           [(ngModel)]="productCategoryModel.Fee"
+                           name="Fee" />
+                    <div *ngIf="Fee.touched && Fee.errors">
+                        <label class="text-danger" *ngIf="Fee.errors.required">
+                            نام را وارد کنید
+                        </label>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="IsLastLevel" class="col col-md-3 control-label">سطح پایانی است؟</label>
+                <div class="col-md-9">
+                    <input ngControl="IsLastLevel" id="IsLastLevel" required
+                           #IsLastLevel="ngModel"
+                           minlenght="3"
+                           type="checkbox" class="form-control"
+                           [(ngModel)]="productCategoryModel.IsLastLevel"
+                           name="IsLastLevel" />
+                    <div *ngIf="IsLastLevel.touched && IsLastLevel.errors">
+                        <label class="text-danger" *ngIf="IsLastLevel.errors.required">
+                            نام را وارد کنید
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Back
+            </button>
+
+            <button type="button" [disabled]="!editProductCategoryForm.form.valid" class="btn btn-default"
+                    (click)="updateProductCategory(editProductCategoryForm)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update
+            </button>
+            <button [disabled]="!editProductCategoryForm.valid"
+                    type="submit" class="btn btn-primary">
+                ثبت
+            </button>
+        </div>
+    </div>
+
+</form>

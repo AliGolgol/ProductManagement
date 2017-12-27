@@ -1,0 +1,79 @@
+﻿@model Repository.DomainModel.Entry.BuySlip
+
+
+<div class="panel panel-danger">
+
+    <div class="panel-heading">
+        آیا مطمئن هستید؟
+    </div>
+    <div class="panel-body">
+        <div>
+            <div>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Period.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Period.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Supplier.Address)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Supplier.Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DateCreation)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DateCreation)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DeliveryMan)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DeliveryMan)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AppUserId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AppUserId)
+                    </dd>
+
+                </dl>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer panel-danger">
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="حذف" class="btn btn-danger" /> 
+                
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Repository.DomainModel.Repository.RepositoryType>
+
+@{
+    var grid = new WebGrid(source: Model);
+}
+
+<div id="myModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <a class="btn btn-success" data-modal="" href="/RepositoryTypes/Create" id="btnCreate">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+
+    </div>
+    <div class="panel-body">
+        <p>...</p>
+        @grid.GetHtml(tableStyle: "table table-hover table-bordered table-striped",
+    columns: grid.Columns(
+        grid.Column(columnName: "Id", header: "شناسه"),
+        grid.Column(columnName: "Name", header: "نوع انبار"),
+        grid.Column(header: "عملیات", format: @<text>
+            @Html.Raw("<a data-modal='' href='/RepositoryTypes/Details/" + item.Id + "' id='" + item.Id + "' title='جزئیات'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/RepositoryTypes/Edit/" + item.Id + "' id='" + item.Id + "' title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/RepositoryTypes/Delete/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+        </text>)))
+    </div>
+    <!-- Table -->
+    <div class="panel-footer"></div>
+</div>
+<script src="~/Scripts/site/bootstrap-ajax-modal.js"></script>

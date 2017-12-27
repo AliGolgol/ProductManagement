@@ -1,0 +1,68 @@
+﻿<form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
+    <div class="container">
+        <div class="panel panel-primary left">
+            <div class="panel-heading">
+                <span> صفحه ورود</span>
+            </div>
+            <div class="panel-body">
+
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="username" class="col col-md-2 control-label">ایمیل</label>
+                        <div class="col-md-10">
+                            <input ngControl="username" id="username" required autofocus
+                                   #username="ngModel"
+                                   (change)="log(username)"
+                                   minlenght="3"
+                                   type="email" class="form-control"
+                                   [(ngModel)]="loginBindingModel.username"
+                                   name="username" />
+                            <div *ngIf="username.touched && username.errors">
+                                <label class="text-danger" *ngIf="username.errors.required">
+                                    ایمیل را وارد کنید
+                                </label>
+                                <label class="text-danger" *ngIf="username.errors.minlength">
+                                    Email should be minimum {{ username.errors.minlength.requiredLength }} characters.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body form-horizontal">
+                        <div class="form-group">
+                            <label for="password" class="col col-md-2 control-label">رمز عبور</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" [(ngModel)]="loginBindingModel.password"
+                                       name="password" #password="ngModel" required />
+                                <div *ngIf="password.touched && password.errors">
+                                    <label class="text-danger" *ngIf="password.errors.required">
+                                        رمز عبور را وارد کنید
+                                    </label>
+                                    <label class="text-danger" *ngIf="password.errors.minlength">
+                                        Email should be minimum {{ password.errors.minlength.requiredLength }} characters.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button [disabled]="!f.valid"
+                                    type="submit" class="btn btn-primary">
+                                ورود
+                            </button>
+                            <button [disabled]="!f.valid"
+                                    type="button" class="btn btn-info" (click)="authorize()">
+                                اعتبار سنجی
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</form>

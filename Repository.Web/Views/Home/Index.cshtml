@@ -1,0 +1,267 @@
+﻿@*@using Kendo.Mvc.UI*@
+@using ReportViewerForMvc;
+@model Repository.ViewModel.Common.HomeViewModel<Repository.DomainModel.Order.Invoice>
+
+@{
+    var grid = new WebGrid(canPage: true, canSort: true,
+                            ajaxUpdateContainerId: "grid", rowsPerPage: Model.PageSize);
+    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+<div>
+    @*<div class="row" ng-app="PrdCatApp" ng-controller="PrdCatCtrl">
+            <div class="container">
+                <h2>کدینگ کالا</h2>
+                <strong class="error">{{error}}</strong>
+                <p ng-hide="addMode">
+                    <a ng-click="toggleAdd()" href="javascript:;" class="btn btn-primary">جدید</a>
+                </p>
+
+                <form name="addPrdCat" ng-show="addMode" style="width: 600px; margin: 0px auto;">
+
+                    <label>Name:</label><input type="text" ng-model="newProduct.Name" required/>
+                    <label>Description:</label><input type="text" ng-model="newProduct.Description" required/>
+                    <br/>
+                    <label>Parent:</label>
+
+                    <select data-ng-model="newProduct.ParentId"  class="dropdown dropDownListIcon">
+                        <option ng-repeat="x in products" value="{{x.Id}}" >{{x.Name}}</option>
+                    </select>
+                    <br/>
+                    <span class="error" ng-show="addPrdCat.$error.Description">Invalid Model format!</span>
+                    <br/>
+                    <input type="submit" value="Add" ng-click="AddPrdCat()" ng-disabled="!addPrdCat.$valid" class="btn btn-primary"/>
+                    <input type="button" value="Cancel" ng-click="toggleAdd()" class="btn btn-primary"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                </form>
+                <table class="table table-bordered table-hover" stype="width:800px;">
+                    <tr>
+                        <th>#</th>
+                        <th>نام گروه کالا</th>
+                        <th>توضیحات</th>
+                        <th>عملیات</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="text" ng-model="search.Name"/>
+                        </td>
+                        <td>
+                            <input type="text" ng-model="search.Description"/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-repeat="product in products | filter:search">
+                        <td>
+                            <strong ng-hide="product.editMode">
+                                {{product.Id}}
+                            </strong>
+                        </td>
+                        <td></td>
+                        <td>
+                            <p ng-hide="product.editMode">{{product.Description}}</p>
+                            <input type="text" ng-show="product.editMode" ng-model="product.Description"/>
+                        </td>
+                        <td>
+
+                            <p ng-hide="product.editMode"  >{{product.Id}}</p>
+
+                            <select ng-show="product.editMode" data-ng-model="product.ParentId" class="dropdown dropDownListIcon">
+                                <option ng-repeat="x in products" value="{{x.Id}}">{{x.Name}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <p ng-hide="product.editMode">
+                                <a ng-click="toggleEdit(product)" href="javascript:;">ویرایش</a> |
+                                <a ng-click="del(product)" href="javascript:;">حذف</a>
+                            </p>
+                            <p ng-show="product.editMode">
+                                <a ng-click="save(product)" href="javascript:;">ذخیره</a> |
+                                <a ng-click="toggleEdit(product)" href="javascript:;">بی خیال</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { @class = "row col-md-9" })
+
+        </div>*@
+
+
+
+</div>
+
+
+<div class="row col-md-offset-1">
+
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <a class="btn img-circle img-responsive" href="/BuySlips/Index" id="btnCreate" width="100" height="100">
+            @*<span class="glyphicon glyphicon-plus"></span>*@
+            <img src="~/Content/web/autocomplete/palette.png" class="img-circle img-responsive" width="100" height="100" />
+            <h4>@Model.BuySlipCount</h4>
+            <span class="text-muted">رسید</span>
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <a class="btn img-circle img-responsive" href="/Invoices" id="btnCreate" width="100" height="100">
+            @*<span class="glyphicon glyphicon-plus"></span>*@
+            <img src="~/Content/web/autocomplete/palette.png" class="img-circle img-responsive" width="100" height="100" />
+            <h4>@Model.InvoiceCount</h4>
+            <span class="text-muted">حواله/فاکتور</span>
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <a class="btn img-circle img-responsive" href="/StockItems" id="btnCreate" width="100" height="100">
+            @*<span class="glyphicon glyphicon-plus"></span>*@
+            <img src="~/Content/web/autocomplete/palette.png" class="img-circle img-responsive" width="100" height="100" />
+            <h4>@Model.StockCount</h4>
+            <span class="text-muted">موجودی</span>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <fieldset>
+            <legend>تغییر نوع نمودار</legend>
+            <input type="radio" name="rdShowApproach" onclick="changeChartType('bar')" />میله ای<br />
+            <input type="radio" name="rdShowApproach" onclick="changeChartType('pie')" />دایره ای<br />
+            <input type="radio" name="rdShowApproach" checked="checked" onclick="changeChartType('column')" />ستونی<br />
+            <input type="radio" name="rdShowApproach" onclick="changeChartType('donut')" />دونات<br />
+            <input type="radio" name="rdShowApproach" onclick="changeChartType('line')" />خطی<br />
+            <input type="radio" name="rdShowApproach" onclick="changeChartType('waterfall')" />آبشاری<br />
+            <input type="radio" name="rdShowApproach" onclick="changeChartType('funnel')" />قیفی<br />           
+        </fieldset>
+    </div>
+    <div class="col-xs-6  placeholder glyphicon-text-background">
+        <div>
+            <div id="chartInv" dir="rtl">                
+            </div>
+            <button onclick="doExportInv()" class="k-button">تهیه خروجی</button>
+        </div>
+        <div>
+            <div id="chartBuy" dir="rtl">                
+            </div>
+            <button onclick="doExportBuy()" class="k-button">تهیه خروجی</button>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("Index", "Invoices", FormMethod.Get))
+{
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <div class="form-group">
+                <a class="btn btn-success" href="/InvoiceItems/Create" id="btnCreate">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                <div class="input-group col-md-11">
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="جستجو براساس تاریخ و گیرنده" />
+                    <button class="btn btn-default" type="submit">جستجو</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel-body">
+            <p>...</p>
+            @grid.GetHtml(tableStyle: "table table-hover table-bordered table-striped",
+         columns: grid.Columns(
+         grid.Column(columnName: "Id", header: "شناسه"),
+         grid.Column(columnName: "CreatedDate", header: "تاریخ ثبت"),
+         grid.Column(columnName: "Reciver", header: "گیرنده"),
+
+         grid.Column(header: "عملیات", format: @<text>
+                @Html.Raw("<a data-modal='' href='/Invoices/Details/" + item.Id + "' id='" + item.Id + "' title='جزئیات'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                @Html.Raw("<a href='/Invoices/Edit/" + item.Id + "' id='" + item.Id + "' title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                @Html.Raw("<a data-modal='' href='/Invoices/Delete/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                @Html.Raw("<a  href='/Report/InvoiceReport/" + item.Id + "' id='" + item.Id + "' title='چاپ' target='_blank'> <span class='glyphicon glyphicon-print'> </span> </a>")
+        </text>)))
+        </div>
+        <!-- Table -->
+        <div class="panel-footer"></div>
+    </div>
+}
+@section scripts
+{
+
+    <script type="text/javascript">
+
+
+        $('#chartInv').ShowChart({
+            @*url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "products" })",*@
+            url: "@Url.Action("GetInvoiceItem", "Home")",
+            legendPosition: "right",
+            seriesType: "column",
+            text: "فاکتور",
+            categoryAxisLabelsRotation: 45,
+            font: '16px irans',
+            theme: 'Silver'
+        });
+        $('#chartBuy').ShowChart({
+            @*url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "products" })",*@
+            url: "@Url.Action("GetBuySlipItem", "Home")",
+            legendPosition: "right",
+            seriesType: "column",
+            text: "رسید",
+            categoryAxisLabelsRotation: -45,
+            font: '16px irans',
+            theme: 'Silver'
+        });
+        function changeChartType(type) {
+            var chartInv = $("#chartInv").data("kendoChart");
+            chartInv.options.series[0].type = type;
+            chartInv.refresh();
+
+            var chartBuy = $("#chartBuy").data("kendoChart");
+            chartBuy.options.series[0].type = type;
+            chartBuy.refresh();
+        }
+
+
+        kendo.pdf.defineFont({
+            /*"Verdana": "/fonts/Verdana.ttf", // this is a URL
+            "Verdana|Bold": "/fonts/Verdana_Bold.ttf",
+            "Verdana|Bold|Italic": "/fonts/Verdana_Bold_Italic.ttf",
+            "Verdana|Italic": "/fonts/Verdana_Italic.ttf"*/
+            "Iranian Sans": "/fonts/irsans.ttf"
+        });
+
+        function doExportInv() {
+            var chart = $("#chartInv").data("kendoChart");
+
+            chart.saveAsPDF(); // it needs version 2014.3.1119 +
+            // or
+            chart.exportImage().done(function (data) {
+                kendo.saveAs({
+                    dataURI: chart.imageDataURL(),
+                    fileName: "chartInv.png"
+                });
+            });
+        }
+            function doExportBuy() {
+                var chart = $("#chartBuy").data("kendoChart");
+
+                chart.saveAsPDF(); // it needs version 2014.3.1119 +
+                // or
+                chart.exportImage().done(function (data) {
+                    kendo.saveAs({
+                        dataURI: chart.imageDataURL(),
+                        fileName: "chartBuy.png"
+                    });
+                });
+        }
+    </script>
+}

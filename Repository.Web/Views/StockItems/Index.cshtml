@@ -1,0 +1,47 @@
+﻿@model Repository.ViewModel.Common.PagedList<Repository.ViewModel.Order.StockItemListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    var grid = new WebGrid(canPage: true, canSort: true,
+                            ajaxUpdateContainerId: "grid", rowsPerPage: Model.PageSize);
+    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+
+
+@using (Html.BeginForm("Index", "Invoices", FormMethod.Get))
+{
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <div class="form-group">
+                
+                <div class="input-group col-md-11">
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="جستجو براساس تاریخ و گیرنده" />
+                    <button class="btn btn-default" type="submit">جستجو</button>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="panel-body">
+            <p>...</p>
+            @grid.GetHtml(tableStyle: "table table-hover table-bordered table-striped",
+         columns: grid.Columns(
+         grid.Column(columnName: "Id", header: "شناسه"),
+         grid.Column(columnName: "Name", header: "نام کالا"),
+         grid.Column(columnName: "RepName", header: "نام انبار"),
+         grid.Column(columnName: "Quantity", header: "تعداد"))))
+        </div>
+        <!-- Table -->
+        <div class="panel-footer"></div>
+    </div>
+}

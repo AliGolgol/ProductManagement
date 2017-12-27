@@ -1,0 +1,416 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*<link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />
+        <link href="~/Content/Site.css" rel="stylesheet" />
+        <link href="~/Content/css/sideNav.css" rel="stylesheet" />*@
+    <link href="~/Content/web/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Content/web/kendo.default.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/dataviz/kendo.dataviz.min.css" rel="stylesheet" />
+    <link href="~/Content/dataviz/kendo.dataviz.default.min.css" rel="stylesheet" />
+    <link href="~/Content/mobile/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/App/ProductCategory/PrdCatApp.js"></script>
+    <script src="~/Scripts/App/Unit/UnitApp.js"></script>
+
+    <link href="~/Content/PersianDatePicker.min.css" rel="stylesheet" />
+
+</head>
+<body class="backBady">
+    @{
+        ViewBag.t=string.Format("{0}", "طراحی و تولید");<br />
+        ViewBag.n=string.Format("{0}", "علی گل گل -09163033585");
+        //PersianCalendar persian = new PersianCalendar();
+        //ViewBag.persian = persian.GetYear(DateTime.Now).ToString();
+    }
+    <div class="navbar navbar-inverse bg-danger navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("سیستم انبارداری", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>          
+                <ul class="nav navbar-nav navbar-collapse collapse">
+                    <li>@Html.ActionLink("خانه", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("پکیح نرافزاری", "Index", "Help", new { area = "" }, null)</li>
+                </ul>           
+
+            <ul class="nav navbar-nav navbar-left">
+                @Html.Partial("_LoginPartial")
+                <li>@{Html.RenderAction("GetMinProducts", "Products");}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-3">
+                @Html.Partial("_Alerts")
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 well well-sm   ViewpartHieght " style="position:fixed">
+            <div class="panel-group top-gap" id="accordion">
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse10">
+                                گزارشات
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse10" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="/StockItems" class="glyphicon glyphicon-barcode">&nbsp;موجودی&nbsp; <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li>
+                                    <a href="/Invoices" class="glyphicon glyphicon-barcode ">&nbsp;حواله&nbsp; <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li>
+                                    <a href="/BuySlips" class="glyphicon glyphicon-barcode ">&nbsp;رسید&nbsp; <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="glyphicon glyphicon-barcode ">
+                                        &nbsp;درخواست خردید&nbsp; <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="glyphicon glyphicon-barcode ">&nbsp;درخواست کالا&nbsp; <span class="sr-only">(current)</span></a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default collapse">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse9">
+                                درخواست ها
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse9" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#" class="glyphicon glyphicon-th-list">&nbsp;اعلام رسید&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="glyphicon glyphicon-th-list">&nbsp;درخواست خرید&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="glyphicon glyphicon-th-list">&nbsp;درخواست کالا از انبار&nbsp;</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse1">
+                                عملیات مقداری انبار
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="/Invoices" class="glyphicon glyphicon-th-list">&nbsp;حواله انبار&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="/BuySlips" class="glyphicon glyphicon-th-list">&nbsp;رسید دائم&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse11">
+                                سایر
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse11" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="/BillTypes" class="glyphicon glyphicon-th-list">&nbsp;تعریف سایر خروجی ها&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="/EntrySlipTypes" class="glyphicon glyphicon-th-list">&nbsp;تعریف سایر ورودیها&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="/EntrySlips" class="glyphicon glyphicon-th-list">&nbsp;ثبت ورودی &nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="/Bills" class="glyphicon glyphicon-th-list">&nbsp;ثبت خروجی&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="/About" class="glyphicon glyphicon-th-list">&nbsp;درباره ما&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse3">
+                                کالاها
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="~/ProductCategory" class="glyphicon glyphicon-th-list">&nbsp;کدینک کالا&nbsp; </a>
+                                </li>
+                                <li>
+                                    <a href="~/Products" class="glyphicon glyphicon-th-list">&nbsp;موجودی اول دوره&nbsp; </a>
+                                </li>
+                            </ul>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse4">
+                                فروشندگان
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="/Suppliers" class="glyphicon glyphicon-th-list">&nbsp;فروشندگان&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse5">
+                                خریداران
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse5" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#" class="glyphicon glyphicon-th-list">&nbsp;خریداران&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse6">
+                                بخش درخواست کننده
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse6" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="~/Units" class="glyphicon glyphicon-th-list">&nbsp; واحد&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse7">
+                                کارخانه/تولید کنندگان
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse7" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="~/Manufacturers" class="glyphicon glyphicon-th-list">&nbsp; واحد&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" class="glyphicon glyphicon-th-list " data-parent="#accordion" href="#collapse8">
+                                انبار
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse8" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav">
+                                <li>
+                                    <a href="~/Repositories" class="glyphicon glyphicon-th-list">&nbsp; انبار&nbsp;</a>
+                                </li>
+                                <li>
+                                    <a href="~/RepositoryTypes" class="glyphicon glyphicon-th-list">&nbsp; انواع انبار&nbsp;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9 col-md-offset-3">
+            <div class="container body-content top-gap">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <div class="container col-md-offset-4">
+                        @{
+                            string.Format("{0}", "طراحی و تولید");<br />
+                            string.Format("{0}", "علی گل گل -09163033585");
+                            //PersianCalendar persian = new PersianCalendar();
+                            //ViewBag.persian = persian.GetYear(DateTime.Now).ToString();
+                        }<p>@ViewBag.t</p>
+                        <p>@ViewBag.n</p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/PersianDatePicker.min.js"></script>
+    <script src="~/Scripts/site/EnterIndex.js"></script>
+    <script src="~/Scripts/Kendo/kendo.all.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/site/jquery.ChartAjax.js"></script>
+    @{
+        if (TempData["message"] != null && TempData["success"] == "true")
+        {
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    toastr.success('@TempData["message"]');
+                })
+            </script>
+        }
+        else if (TempData["message"] != null && TempData["success"] == "false")
+        {
+            <script type="text/javascript">
+                $(document).ready(function () {
+            toastr.error('@TempData["message"]');
+            })
+
+            </script>
+        }
+    }
+    <script>
+        $(document).ready(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "300000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+        // override jquery validate plugin defaults
+        $.validator.setDefaults({
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        $(function () {
+            $('form').each(function () {
+                $(this).find('div.form-group').each(function () {
+                    if ($(this).find('span.field-validation-error').length > 0) {
+                        $(this).addClass('has-error');
+                    }
+                });
+            });
+        });
+        })
+    </script>
+    <script type="text/javascript">
+        $('body').on('keydown', 'input, select, textarea', function (e) {
+            var self = $(this)
+              , form = self.parents('form:eq(0)')
+              , focusable
+              , next
+            ;
+            if (e.keyCode == 13) {
+                focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                next = focusable.eq(focusable.index(this) + 1);
+                if (next.length) {
+                    next.focus();
+                } else {
+                    form.submit();
+                }
+                return false;
+            }
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    <script>
+    $("form").removeData("validator");
+    $("form").removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse("form");
+    </script>
+</body>
+</html>

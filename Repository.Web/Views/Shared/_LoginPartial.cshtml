@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("logOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-left">
+
+            <li>
+                <a href="/Manage/ChangePassword">
+                    <span class="glyphicon glyphicon-user"></span>
+                    @string.Format("{0} {1} {2}", "سلام", User.Identity.GetUserName(), "!")
+                </a>
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">
+                    <span class="glyphicon glyphicon-log-in"></span> خروج  
+                </a>
+            </li>
+        </ul>
+    }
+
+    if (User.IsInRole("Admin"))
+    {
+        using (Html.BeginForm("logOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <ul class="nav navbar-nav navbar-left">
+
+                <li>
+                    <a href="/UsersAdmin">
+                        <span class="glyphicon glyphicon-user">مدیریت کاربران</span>
+                        
+                    </a>
+                </li>
+            </ul>
+        }
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-left">       
+        <li><a href="/Account/Login" id="loginLink"><span class="glyphicon glyphicon-log-in"></span> ورود </a></li>
+    </ul>
+}
+

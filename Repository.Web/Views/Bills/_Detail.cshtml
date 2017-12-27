@@ -1,0 +1,85 @@
+﻿
+@model Repository.DomainModel.Catalog.Bill
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Phone Detail</h3>
+</div>
+
+<div class="modal-body">
+    <div>
+        
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PaymentType.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PaymentType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Reciver)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Reciver)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PeriedId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PeriedId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AppUserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AppUserId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BiilTypeId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BiilTypeId)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" data-dismiss="modal">Close</button>
+</div>
+
+   

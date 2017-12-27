@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Repository.DomainModel.Common.Supplier>
+
+@{
+    ViewBag.Title = "فروشندگان";
+}
+
+<p>
+    @Html.ActionLink("ایجاد", "Create", null, new { @class = "btn btn-primary btn-lg btn-block " })
+</p>
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        لیست
+    </div>
+    <div class="panel-body">
+        <p>...</p>
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("ویرایش", "Edit", new {id = item.Id}, new {@class = "btn btn-warning  "}) |
+                        @Html.ActionLink("جزئیات", "Details", new {id = item.Id}, new {@class = "btn btn-default  "}) |
+                        @Html.ActionLink("حذف", "Delete", new {id = item.Id}, new {@class = "btn btn-danger  "})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+@{
+    var grid = new WebGrid(source: Model);
+}
+
+
+<div id="myModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <a class="btn btn-success" data-modal="" href="/Suppliers/Create" id="btnCreate">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+
+    </div>
+    <div class="panel-body">
+        <p>...</p>
+        @grid.GetHtml(tableStyle: "table table-hover table-bordered table-striped",
+    columns: grid.Columns(
+        grid.Column(columnName: "Id", header: "شناسه"),
+        grid.Column(columnName: "LastName", header: "نام"),
+        grid.Column(columnName: "Address", header: "آدرس"),
+        grid.Column(columnName: "Description", header: "توضیحات"),
+        grid.Column(header: "عملیات", format: @<text>
+            @Html.Raw("<a data-modal='' href='/Suppliers/Details/" + item.Id + "' id='" + item.Id + "' title='جزئیات'> <span class='glyphicon glyphicon-search'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/Suppliers/Edit/" + item.Id + "' id='" + item.Id + "' title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+            @Html.Raw("<a data-modal='' href='/Suppliers/Delete/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+        </text>)))
+    </div>
+    <!-- Table -->
+    <div class="panel-footer"></div>
+</div>
+<script src="~/Scripts/site/bootstrap-ajax-modal.js"></script>

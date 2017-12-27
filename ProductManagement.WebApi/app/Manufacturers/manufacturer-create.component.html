@@ -1,0 +1,105 @@
+﻿<a class="btn btn-success" data-modal="" (click)="openIt()">
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+
+<modal #mymodal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+       (onOpen)="opened()">
+    <modal-header [show-close]="true"></modal-header>
+    <modal-body>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
+            <div class="panel-body form-horizontal">
+                <div class="form-group">
+                    <label for="Name" class="col col-md-2 control-label">نام</label>
+                    <div class="col-md-10">
+                        <input ngControl="Name" id="Name" required autofocus
+                               #Name="ngModel"
+                               (change)="log(Name)"
+                               minlenght="3"
+                               type="text" class="form-control"
+                               [(ngModel)]="manufacturerModel.Name"
+                               name="Name" />
+                        <div *ngIf="Name.touched && Name.errors">
+                            <label class="text-danger" *ngIf="Name.errors.required">
+                                نام را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="Name.errors.minlength">
+                                Name should be minimum {{ Name.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="Address" class="col col-md-2 control-label">آدرس</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" [(ngModel)]="manufacturerModel.Address"
+                                   name="Address" #Address="ngModel" required />
+                            <div *ngIf="Address.touched && Address.errors">
+                                <label class="text-danger" *ngIf="Address.errors.required">
+                                    نام را وارد کنید
+                                </label>
+                                <label class="text-danger" *ngIf="Address.errors.minlength">
+                                    Name should be minimum {{ Address.errors.minlength.requiredLength }} characters.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="Tel" class="col col-md-2 control-label">شماره تماس</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" [(ngModel)]="manufacturerModel.Tel"
+                                   name="Tel" #Tel="ngModel" required />
+                            <div *ngIf="Tel.touched && Tel.errors">
+                                <label class="text-danger" *ngIf="Tel.errors.required">
+                                    نام را وارد کنید
+                                </label>
+                                <label class="text-danger" *ngIf="Tel.errors.minlength">
+                                    Name should be minimum {{ Tel.errors.minlength.requiredLength }} characters.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="Description" class="col col-md-2 control-label">توضیحات</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" [(ngModel)]="manufacturerModel.Description"
+                                   name="Description" #Description="ngModel" required />
+                            <div *ngIf="Description.touched && Description.errors">
+                                <label class="text-danger" *ngIf="Description.errors.required">
+                                    نام را وارد کنید
+                                </label>
+                                <label class="text-danger" *ngIf="Description.errors.minlength">
+                                    Name should be minimum {{ Description.errors.minlength.requiredLength }} characters.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button [disabled]="!f.valid"
+                                type="submit" class="btn btn-primary">
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+        <button class="btn btn-danger btn-sm pull-right" (click)="modalAdd.close()">
+            <i class="fa fa-times" aria-hidden="true"></i>انصراف
+        </button>
+
+    </modal-footer>
+</modal>
+

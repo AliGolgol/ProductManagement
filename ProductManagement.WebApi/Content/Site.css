@@ -1,0 +1,38 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+#right-nave {
+  background: #2b2b2b;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 250px;
+}
+.top-gap {
+    margin-top: 20px;
+}
+.ViewpartHieght {
+    height: 100vh;
+}
+.backBady {
+    background-image: url("Images/brickwall.png");
+}
+.bakLogin
+{
+    background-image: url("Images/5.jpg");
+}

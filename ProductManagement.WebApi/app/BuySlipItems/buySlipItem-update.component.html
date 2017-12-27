@@ -1,0 +1,91 @@
+﻿<form #editBuySlipItemForm="ngForm" *ngIf="buySlipItemLoaded" (ngSubmit)="onSubmit(editBuySlipItemForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ایجاد</span>
+        </div>
+        <div class="panel-body form-horizontal">            
+
+            <div class="form-group">
+                <label for="Product" class="col col-md-3 control-label">کالا</label>
+                <div class="col-md-9">
+                    <select class="form-control" [(ngModel)]="productSelected" name="product" (ngModelChange)="onChange($event)">
+                        <option *ngFor="let product of buySlipItemModel.Products" [ngValue]="product.Id">{{product.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Repository" class="col col-md-3 control-label">انبار</label>
+                <div class="col-md-9">
+                    <select class="form-control" [(ngModel)]="repositorySelected" name="repository" (ngModelChange)="onChanged($event)">
+                        <option *ngFor="let repository of buySlipItemModel.Repositories" [ngValue]="repository.Id">{{repository.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Price" class="col col-md-3 control-label">مبلغ</label>
+                <div class="col-md-9">
+                    <input ngControl="Price" id="Price" required
+                           #Price="ngModel"
+                           (change)="log(Price)"
+                           type="text" class="form-control"
+                           [(ngModel)]="buySlipItemModel.Price"
+                           name="Quantity" />
+                    <div *ngIf="Price.touched && Price.errors">
+                        <label class="text-danger" *ngIf="Price.errors.required">
+                            مبلغ را وارد کنید
+                        </label>                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Quantity" class="col col-md-3 control-label">تعداد</label>
+                <div class="col-md-9">
+                    <input ngControl="Quantity" id="Quantity" required
+                           #Quantity="ngModel"
+                           (change)="log(Quantity)"
+                           type="text" class="form-control"
+                           [(ngModel)]="buySlipItemModel.Quantity"
+                           name="Quantity" />
+                    <div *ngIf="Quantity.touched && Quantity.errors">
+                        <label class="text-danger" *ngIf="Quantity.errors.required">
+                            تعداد را وارد کنید
+                        </label>                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Description" class="col col-md-3 control-label">توضیحات</label>
+                <div class="col-md-9">
+                    <input ngControl="Description" id="Description" required
+                           #Description="ngModel"
+                           (change)="log(Description)"
+                           type="text" class="form-control"
+                           [(ngModel)]="buySlipItemModel.Description"
+                           name="Description" />
+                    <div *ngIf="Description.touched && Description.errors">
+                        <label class="text-danger" *ngIf="Description.errors.required">
+                            توضیحات را وارد کنید
+                        </label>                        
+                    </div>
+                </div>
+            </div>            
+
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>انصراف
+            </button>
+
+            <button type="button" [disabled]="!editBuySlipItemForm.form.valid" class="btn btn-default"
+                    (click)="updateBuySlipItem(editBuySlipItemForm)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>ثبت
+            </button>
+
+        </div>
+    </div>
+
+</form>

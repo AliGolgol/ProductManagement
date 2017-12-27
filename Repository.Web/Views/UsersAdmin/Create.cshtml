@@ -1,0 +1,62 @@
+﻿@model Repository.ViewModel.AppUser.RegisterViewModel
+@{
+    ViewBag.Title = "ایجاد";
+}
+
+
+@using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-success">
+
+        <div class="panel-heading">
+            ایجاد کاربر
+        </div>
+        <div class="panel-body">
+            @Html.ValidationSummary("", new { @class = "text-error" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">
+                    انتخاب مجوز
+                </label>
+                <div class="col-md-10">
+                    @foreach (var item in (SelectList)ViewBag.RoleId)
+                    {
+                        <input type="checkbox" name="SelectedRoles" value="@item.Value" class="checkbox-inline" />
+                        @Html.Label(item.Value, new { @class = "control-label" })
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                
+            </div>
+        </div>
+        <div class="panel-footer panel-success">
+           
+                <input type="submit" class="btn btn-default " value="ایجاد" />
+                @Html.ActionLink("بازگشت", "Index", null, new { @class = "btn btn-success" })
+            <div>
+                
+            </div>
+        </div>
+    </div>
+
+}
+

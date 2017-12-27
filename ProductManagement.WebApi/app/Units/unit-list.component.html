@@ -1,0 +1,65 @@
+﻿<div @flyInOut="'in'">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <unit-add></unit-add>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-hover table-bordered table-striped">
+                <tr>
+                    <td>شناسه</td>
+                    <td>نام</td>
+                    <td>توضیحات</td>
+                    <td>عملیات</td>
+
+                </tr>
+                <tr *ngFor="#unit of units">
+                    <td>{{unit.Id}}</td>
+                    <td>{{unit.Name}}</td>
+                    <td>{{unit.Description}}</td>
+                    <td>
+                        <text>
+                            <a title='جزئیات' (click)="viewDetails(unit.Id)"> <span class='glyphicon glyphicon-search'> </span> </a>
+                            <a [routerLink]="['/updateUnit',unit.Id]" title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>
+                            <a title='حذف' (click)="delUnit(unit)"> <span class='glyphicon glyphicon-trash'> </span> </a>
+                        </text>
+                </tr>
+            </table>
+            <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" class="pagination-sm"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+        <div class="panel-footer"></div>
+    </div>
+</div>
+
+<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+       (onOpen)="opened()" #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title" *ngIf="selectedUnitLoaded">{{unitDetails.Name}} details</h4>
+    </modal-header>
+    <modal-body *ngIf="selectedUnitLoaded">
+        <form ngNoForm method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>نام</label>
+                        <input type="text" class="form-control" [(ngModel)]="unitDetails.Name" disabled />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>توضیحات</label>
+                        <input type="text" class="form-control" [(ngModel)]="unitDetails.Description" disabled />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+        <button class="btn btn-danger btn-sm pull-right" (click)="modal.close()">
+            <i class="fa fa-times" aria-hidden="true"></i>Dismiss
+        </button>
+    </modal-footer>
+</modal>

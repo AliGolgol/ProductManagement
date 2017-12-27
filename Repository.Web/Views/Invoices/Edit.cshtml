@@ -1,0 +1,157 @@
+﻿@model Repository.ViewModel.Order.InvoiceViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-warning">
+
+        <div class="panel-heading">
+            ویرایش
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.AppUserId)
+                @*@Html.HiddenFor(model => model.PeriedId)*@
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreatedDate, new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       onclick = "PersianDatePicker.Show(this, '1392/03/22');"
+                   }
+               })
+                        @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reciver, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Reciver, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Reciver, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PaymentTypeId, "نوع پرداخت", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("PaymentTypeId", null, htmlAttributes: new { @class = "form-control" })
+                        
+                        @Html.ValidationMessageFor(model => model.PaymentTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BillTypeId, "نوع خروج کالا", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("BillTypeId", null, htmlAttributes: new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.BillTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer panel-warning">
+
+            <div>
+                <input type="submit" value="ثبت" class="btn btn-warning" />
+                <button class="btn btn-warning" data-dismiss="modal">بستن</button>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="panel panel-warning">
+
+    <div class="panel-heading">
+        <a class="btn btn-success" data-modal='' href="/InvoiceItems/CreatePop" id="btnCreate">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayName("نام کالا")
+                </th>
+                <th>
+                    @Html.DisplayName("توضیحات")
+                </th>
+                <th>
+                    @Html.DisplayName("تعداد")
+                </th>
+                <th>
+                    @Html.DisplayName("قیمت واحد")
+                </th>
+                <th>
+                    @Html.DisplayName("عملیات")
+                </th>
+                
+                
+            </tr>
+
+            @foreach (var item in Model.InvoiceItems)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        
+                        @Html.Raw("<a data-modal='' href='/InvoiceItems/Details/" + item.Id + "' id='" + item.Id + "' title='جزئیات'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                        @Html.Raw("<a data-modal='' href='/InvoiceItems/Edit/" + item.Id + "' id='" + item.Id + "' title='ویرایش'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                        @Html.Raw("<a data-modal='' href='/InvoiceItems/Delete/" + item.Id + "' id='" + item.Id + "' title='حذف'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="panel-footer panel-warning">
+
+    </div>
+</div>
+
+<div id="myModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+
+    </div>
+</div>
+<script src="~/Scripts/site/bootstrap-ajax-modal.js"></script>
+

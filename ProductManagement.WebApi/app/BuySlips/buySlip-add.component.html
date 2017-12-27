@@ -1,0 +1,94 @@
+﻿<form #editBuySlipForm="ngForm" (ngSubmit)="onSubmit(editBuySlipForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ایجاد</span>
+        </div>
+        <div class="panel-body form-horizontal">
+
+            <div class="form-group">
+                <label for="DateCreation" class="col col-md-3 control-label">تاریخ ثبت</label>
+                <div class="col-md-9">
+                    <input ngControl="DateCreation" id="DateCreation" required
+                           #DateCreation="ngModel"
+                           (change)="log(DateCreation)"
+                           type="text" class="form-control"
+                           [(ngModel)]="buySlipModel.DateCreation"
+                           name="DateCreation" />
+                    <div *ngIf="DateCreation.touched && DateCreation.errors">
+                        <label class="text-danger" *ngIf="DateCreation.errors.required">
+                            تاریخ را وارد کنید
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Description" class="col col-md-3 control-label">توضیحات </label>
+                <div class="col-md-9">
+                    <input ngControl="Description" id="Description" required
+                           #Description="ngModel"
+                           type="text" class="form-control"
+                           [(ngModel)]="buySlipModel.Description"
+                           name="Description" />
+                    <div *ngIf="Description.touched && Description.errors">
+                        <label class="text-danger" *ngIf="Description.errors.required">
+                            نام را وارد کنید
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="DeliveryMan" class="col col-md-3 control-label">تحویل دهنده</label>
+                <div class="col-md-9">
+                    <input ngControl="DeliveryMan" id="DeliveryMan" required
+                           #DeliveryMan="ngModel"
+                           type="text" class="form-control"
+                           [(ngModel)]="buySlipModel.DeliveryMan"
+                           name="DeliveryMan" />
+                    <div *ngIf="DeliveryMan.touched && DeliveryMan.errors">
+                        <label class="text-danger" *ngIf="DeliveryMan.errors.required">
+                            تحویل دهنده را وارد کنید
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Supplier" class="col col-md-3 control-label">تامین کننده :</label>
+                <div class="col-md-9">
+                    <select class="form-control" [(ngModel)]="supplierSelected" name="Supplier" (ngModelChange)="onChange($event)">
+                        <option *ngFor="let supplier of buySlipModel.Suppliers" [ngValue]="supplier.Id">{{supplier.FirstName+' '+supplier.LastName}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="EntrySlipType" class="col col-md-3 control-label">نوع ورود :</label>
+                <div class="col-md-9">
+                    <select class="form-control" [(ngModel)]="entrySlipTypeSelected" name="entrySlipType" (ngModelChange)="onChanged($event)">
+                        <option *ngFor="let entrySlipType of buySlipModel.EntrySlipTypes" [ngValue]="entrySlipType.Id">{{entrySlipType.Name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>انصراف
+            </button>
+
+            <button type="button" [disabled]="!editBuySlipForm.form.valid" class="btn btn-default"
+                    (click)="insert()">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>ثبت
+            </button>
+           
+        </div>
+    </div>
+
+</form>
+
+<pm-buySlipItem  ></pm-buySlipItem>

@@ -1,0 +1,33 @@
+﻿<form #editRepTypForm="ngForm" *ngIf="repostitoryTypeLoaded" (ngSubmit)="onSubmit(editRepTypForm.form)" novalidate>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span>ایجاد</span>
+        </div>
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <label for="Name" class="col col-md-2 control-label">نام</label>
+                <div class="col-md-10">
+                    <!--<label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Name</label>-->
+                    <input type="text" class="form-control" [(ngModel)]="repTypDetails.Name" 
+                           name="Name" #Name="ngModel" required pattern=".{5,50}" />
+                    <label for="Id" >{{repTypDetails.Id}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-danger" (click)="onBack()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Back
+            </button>
+
+            <button type="button" [disabled]="!editRepTypForm.form.valid" class="btn btn-default" 
+                    (click)="updateRepTyp(editRepTypForm)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update
+            </button>
+            <button [disabled]="!editRepTypForm.valid"
+                    type="submit" class="btn btn-primary">
+                ثبت
+            </button>
+        </div>
+    </div>
+
+</form>

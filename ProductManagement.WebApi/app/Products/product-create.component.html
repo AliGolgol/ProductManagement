@@ -1,0 +1,154 @@
+﻿<a class="btn btn-success" data-modal="" (click)="openIt()">
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+
+<modal #mymodal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+       (onOpen)="opened()">
+    <modal-header [show-close]="true"></modal-header>
+    <modal-body>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
+            <div class="panel-body form-horizontal">
+
+                <div class="form-group">
+                    <label for="Name" class="col col-md-3 control-label">نام</label>
+                    <div class="col-md-9">
+                        <input ngControl="Name" id="Name" required
+                               #Name="ngModel"
+                               (change)="log(Name)"
+                               minlenght="3"
+                               type="text" class="form-control"
+                               [(ngModel)]="productModel.Name"
+                               name="Name" />
+                        <div *ngIf="Name.touched && Name.errors">
+                            <label class="text-danger" *ngIf="Name.errors.required">
+                                نام را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="Name.errors.minlength">
+                                Name should be minimum {{ Name.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ProductCategory" class="col col-md-3 control-label">گروه</label>
+                    <div class="col-md-9">
+                        <select class="form-control" [(ngModel)]="productCategorySelected" name="productCategory" (ngModelChange)="onChange($event)">
+                            <option *ngFor="let productCategory of productModel.ProductCategory" [ngValue]="productCategory.Id">{{productCategory.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Manufacturer" class="col col-md-3 control-label">سازنده</label>
+                    <div class="col-md-9">
+                        <select class="form-control" [(ngModel)]="productManufacturerSelected" name="manufacturer" (ngModelChange)="onChanged($event)">
+                            <option *ngFor="let manufacturer of productModel.Manufacturer" [ngValue]="manufacturer.Id">{{manufacturer.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="QuantityPerUnit" class="col col-md-3 control-label">واحد</label>
+                    <div class="col-md-9">
+                        <input ngControl="QuantityPerUnit" id="PackageCount" required
+                               #QuantityPerUnit="ngModel"
+                               (change)="log(QuantityPerUnit)"
+                               minlenght="3"
+                               type="text" class="form-control"
+                               [(ngModel)]="productModel.QuantityPerUnit"
+                               name="QuantityPerUnit" />
+                        <div *ngIf="QuantityPerUnit.touched && QuantityPerUnit.errors">
+                            <label class="text-danger" *ngIf="QuantityPerUnit.errors.required">
+                                نام را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="QuantityPerUnit.errors.minlength">
+                                Name should be minimum {{ QuantityPerUnit.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="PackageCount" class="col col-md-3 control-label">تعداد در بسته</label>
+                    <div class="col-md-9">
+                        <input ngControl="PackageCount" id="PackageCount" required
+                               #PackageCount="ngModel"
+                               (change)="log(PackageCount)"
+                               minlenght="3"
+                               type="text" class="form-control"
+                               [(ngModel)]="productModel.PackageCount"
+                               name="PackageCount" />
+                        <div *ngIf="PackageCount.touched && PackageCount.errors">
+                            <label class="text-danger" *ngIf="PackageCount.errors.required">
+                                نام را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="PackageCount.errors.minlength">
+                                Name should be minimum {{ PackageCount.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="MinimumBalance" class="col col-md-3 control-label">حداقل موجودی</label>
+                    <div class="col-md-9">
+                        <input ngControl="MinimumBalance" id="MinimumBalance" required
+                               #MinimumBalance="ngModel"
+                               (change)="log(MinimumBalance)"
+                               minlenght="3"
+                               type="text" class="form-control"
+                               [(ngModel)]="productModel.MinimumBalance"
+                               name="MinimumBalance" />
+                        <div *ngIf="MinimumBalance.touched && MinimumBalance.errors">
+                            <label class="text-danger" *ngIf="MinimumBalance.errors.required">
+                                نام را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="MinimumBalance.errors.minlength">
+                                Name should be minimum {{ MinimumBalance.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Fee" class="col col-md-3 control-label">درصد افزایش قیمت</label>
+                    <div class="col-md-9">
+                        <input ngControl="Fee" id="Fee" required
+                               #Fee="ngModel"
+                               (change)="log(Fee)"
+                               minlenght="3"
+                               type="text" class="form-control"
+                               [(ngModel)]="productModel.Fee"
+                               name="Fee" />
+                        <div *ngIf="Fee.touched && Fee.errors">
+                            <label class="text-danger" *ngIf="Fee.errors.required">
+                                نام را وارد کنید
+                            </label>
+                            <label class="text-danger" *ngIf="Fee.errors.minlength">
+                                Name should be minimum {{ Fee.errors.minlength.requiredLength }} characters.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-9">
+                        <button [disabled]="!f.valid"
+                                type="submit" class="btn btn-primary">
+                            ثبت
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+        <button class="btn btn-danger btn-sm pull-right" (click)="modalAdd.close()">
+            <i class="fa fa-times" aria-hidden="true"></i>Dismiss
+        </button>
+    </modal-footer>
+</modal>
+
